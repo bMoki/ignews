@@ -4,6 +4,7 @@ import { mocked } from 'jest-mock'
 import Post, { getStaticProps } from '../../pages/posts/preview/[slug]'
 import { createClient } from '../../services/prismic'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 
 
@@ -23,6 +24,12 @@ const post: Post =
 }
 jest.mock('next-auth/react')
 jest.mock('../../services/prismic')
+jest.mock('next/router', () => ({
+    useRouter: jest.fn().mockReturnValue({
+        push: jest.fn(),
+    }),
+
+}))
 
 describe('Post preview page', () => {
     it('renders correctly', () => {
@@ -39,24 +46,36 @@ describe('Post preview page', () => {
         expect(screen.getByText("Wanna continue reading?")).toBeInTheDocument();
     })
 
-    // it('redirects user to full post when user is subscribed', async () => {
-    //     const getSessionMocked = mocked(getSession);
-    //     getSessionMocked.mockResolvedValueOnce(null)
+    it('redirects user to full post when user is subscribed', async () => {
+        const useSessionMocked = mocked(useSession);
+        const useRouterMocked = mocked(useRouter);
+        const pushMock = jest.fn();
 
-    //     const response = await getServerSideProps({
-    //         params: {
-    //             slug: 'my-new-post'
-    //         }
-    //     } as any);
+        useSessionMocked.mockReturnValueOnce({
+            data: {
+                user: {
+                    name: 'John Doe',
+                    email: 'john.doe@example.com',
 
-    //     expect(response).toEqual(
-    //         expect.objectContaining({
-    //             redirect: expect.objectContaining({
-    //                 destination: '/'
-    //             })
-    //         })
-    //     )
-    // })
+                },
+                expires: 'fake',
+                activeSubscription: { 'fake': 'api-subscription' }
+            },
+            status: 'authenticated'
+        })
+
+        useRouterMocked.mockReturnValueOnce({
+            push: pushMock
+        } as any)
+
+        render(
+            <Post post={post} />
+        )
+
+        expect(pushMock).toHaveBeenCalledWith('/posts/my-new-post');
+
+
+    })
 
     // it('loads initial data', async () => {
     //     const getPrismicClientMocked = mocked(createClient)
