@@ -1,4 +1,4 @@
-import { createClient } from "@/services/prismic";
+import { createClient } from "../../services/prismic";
 import { asHTML } from "@prismicio/helpers";
 import { GetServerSideProps } from "next"
 import { getSession } from "next-auth/react"
@@ -40,8 +40,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params, prev
     const session = await getSession({ req });
     const slug = params?.slug;
 
-    console.log(session);
-
     if (!session?.activeSubscription) {
         return {
             redirect: {
@@ -55,6 +53,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params, prev
 
     const response = await prismic.getByUID('publication', String(slug), {});
 
+    console.log(response.data)
     const post = {
         slug,
         title: response.data.title,

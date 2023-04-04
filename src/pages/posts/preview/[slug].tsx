@@ -1,4 +1,4 @@
-import { createClient } from "@/services/prismic";
+import { createClient } from "../../../services/prismic";
 import { asHTML } from "@prismicio/helpers";
 import { GetStaticProps } from "next"
 import Head from "next/head";
@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useEffect } from 'react'
 import { useRouter } from "next/router";
-import { redirect } from "next/dist/server/api-utils";
 
 interface PostPreviewProps {
     post: {

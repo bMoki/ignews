@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from './styles.module.scss';
 import { GetStaticProps } from 'next';
-import { createClient } from '@/services/prismic';
+import { createClient } from '../../services/prismic';
 import Link from 'next/link';
 
 type Post = {
