@@ -77,45 +77,40 @@ describe('Post preview page', () => {
 
     })
 
-    // it('loads initial data', async () => {
-    //     const getPrismicClientMocked = mocked(createClient)
-    //     const getSessionMocked = mocked(getSession);
+    it('loads initial data', async () => {
+        const getPrismicClientMocked = mocked(createClient)
 
-    //     getPrismicClientMocked.mockReturnValueOnce({
-    //         getByUID: jest.fn().mockResolvedValueOnce({
-    //             data: {
-    //                 title: 'My new Post',
-    //                 content: [{ type: 'paragraph', text: 'Post content', spans: [] }],
-    //             },
-    //             last_publication_date: '04-01-2021'
-    //         })
-    //     } as any)
+        getPrismicClientMocked.mockReturnValueOnce({
+            getByUID: jest.fn().mockResolvedValueOnce({
+                data: {
+                    title: 'My new Post',
+                    content: [{ type: 'paragraph', text: 'Post content', spans: [] }],
+                },
+                last_publication_date: '04-01-2021'
+            })
+        } as any)
 
-    //     getSessionMocked.mockResolvedValueOnce({
-    //         activeSubscription: 'fake-active-subscription'
-    //     } as any)
+        const response = await getStaticProps({
+            params: {
+                slug: 'my-new-post'
+            }
+        } as any);
 
-    //     const response = await getServerSideProps({
-    //         params: {
-    //             slug: 'my-new-post'
-    //         }
-    //     } as any);
-
-    //     expect(response).toEqual(
-    //         expect.objectContaining({
-    //             props: {
-    //                 post: {
-    //                     slug: 'my-new-post',
-    //                     title: 'My new Post',
-    //                     content: '<p>Post content</p>',
-    //                     updatedAt: '01 de abril de 2021'
-    //                 }
-    //             }
-    //         })
-    //     )
+        expect(response).toEqual(
+            expect.objectContaining({
+                props: {
+                    post: {
+                        slug: 'my-new-post',
+                        title: 'My new Post',
+                        content: '<p>Post content</p>',
+                        updatedAt: '01 de abril de 2021'
+                    }
+                }
+            })
+        )
 
 
-    // })
+    })
 
 
 })
