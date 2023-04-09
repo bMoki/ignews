@@ -21,3 +21,13 @@ Ignews is a blog application that provides news and articles about the React wor
 ## Testing
 
 - Jest: The testing framework used in the project to write and run tests for JavaScript and TypeScript code. Jest makes it easy to ensure the functionality and reliability of the application by supporting features like mocking, snapshot testing, and code coverage.
+
+## Demonstration
+
+![Site Demonstration](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjU5ZDNmY2I4ZDhjYWUwOTAzMjk0NGVlNjMyZDU1N2NjZTA2NTBmNSZjdD1n/QBQm1orugJWLq1wpua/giphy.gif)
+
+Video: [YouTube](https://youtu.be/YCGOmrHMaP4)
+
+You can access the blog and test yourself here: [Vercel](https://ignews-bmoki.vercel.app)
+
+Use **4242 4242 4242 4242** as card number to pay, this is possible since stripe is configured to stay in test mode.
